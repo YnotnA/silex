@@ -4,6 +4,7 @@ namespace Antho\MyApp\Controller\Provider;
 
 use Silex\Application;
 use Silex\Api\ControllerProviderInterface;
+use Antho\MyApp\Controller\GameController;
 
 class GameControllerProvider implements ControllerProviderInterface
 {
@@ -11,13 +12,20 @@ class GameControllerProvider implements ControllerProviderInterface
     {
         // creates a new controller based on the default route
         $controllers = $app['controllers_factory'];
+        $gc = new GameController($app);
 
-        $controllers->get('/', 'Antho\\MyApp\\Controller\\GameController::index')
+        $controllers->get('/', function() use ($gc) {
+            return $gc->index();
+        });
+        
+        /*
         ->before(function(){
         	echo 'before !!!';
-        });
+        });*/
 
-        $controllers->get("/{id}", "Antho\\MyApp\\Controller\\GameController::show");
+        $controllers->get("/{name}", function($name) use ($gc) {
+            return $gc->show($name);
+        });
 
         /*$controllers->before(function(){
         	echo 'before !!!';

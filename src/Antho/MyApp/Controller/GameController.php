@@ -2,31 +2,34 @@
 
 namespace Antho\MyApp\Controller;
 
+use Silex\Application;
+
 class GameController
 {
+    /**
+     * Silex Application
+     * @var Application
+     */
+    private $app;
+
+    /**
+     * @param Application
+     */
+    public function __construct(Application $app){
+        $this->app = $app;
+    }
 
     public function index(){
-        return 'plop';
-        // show the list of users
+        return $this->app['twig']->render('base.html.twig');
     }
 
-    public function edit($id){
-        // show edit form
-    }
+    public function show($name){
 
-    public function show($id){
-        return 'Coucou ' . $id;
-    }
+        $games = $this->app['igdb']->searchGames($name);
+        var_dump($games);
 
-    /*public function store(){
-        // create a new user, using POST method
+        return $this->app['twig']->render('game/show.html.twig', array(
+            'games' => json_decode($games),
+        ));
     }
-    
-    public function update($id){
-        // update the user #id, using PUT method
-    }
-
-    public function destroy($id){
-        // delete the user #id, using DELETE method
-    }*/
 }

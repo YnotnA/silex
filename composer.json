@@ -1,6 +1,15 @@
 {
+    "repositories":
+    [
+            {
+                "type": "vcs",
+                "url": "https://github.com/YnotnA/igdb-api-php"
+            }
+    ],
     "require": {
-        "silex/silex": "~2.0"
+        "silex/silex": "~2.0",
+        "twig/twig": "^1.31",
+        "igdb/api": "@dev"
     },
     "autoload": {
         "psr-0": { "Antho": "src/" }

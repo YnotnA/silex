@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Jeux</h1>
+    <ul>
+        {% for game in games %}
+            <li>{{ game.name }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
